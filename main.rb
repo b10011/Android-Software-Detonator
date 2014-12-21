@@ -2,7 +2,6 @@ require './asd'
 
 asd = ASD.new
 asd.printBanner
-#asd.setPath([1,1,123])
 
 asd.printMenu
 
