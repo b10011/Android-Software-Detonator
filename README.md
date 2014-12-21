@@ -1,7 +1,7 @@
 Android Software Detonator
 ==========================
 
-NOTICE! There is not and will not be official Windows port although we try to place all methods using third party API or system calls to tools.rb so porting it won't be as painful.
+NOTICE! There is not and will not be official Windows port although we try to place all methods using third party API or system calls to tools.rb and adb.rb so porting this won't be as painful.
 
 
 Program made in Ruby which is helpful at maintaining clear folder structure and speeds up reverse-engineering itself.
