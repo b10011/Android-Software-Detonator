@@ -59,7 +59,7 @@ class Tools
 		version = "cracked"
 		version = "original" if original
 
-		cmd = eval("`unzip -o #{@projects+@project}/apk/#{version}.apk"} -d #{@projects+@project}/unzip/#{version}"}`")
+		cmd = eval("`unzip -o #{@projects+@project}/apk/#{version}.apk -d #{@projects+@project}/unzip/#{version}`")
 
 	end
 
@@ -91,14 +91,14 @@ class Tools
 	def apktool_decompile(original)
 
 		cmd = eval("`java -jar tools/apktool.jar d -f #{@projects+@project}/apk/original.apk -o #{@projects+@project}/reversed/original`")
-		FileUtils::cp_r("#{@projects+@project}/reversed/original", "#{@projects+@project}/reversed/cracked")
+		FileUtils::cp_r("#{@projects+@project}/reversed/original/*", "#{@projects+@project}/reversed/cracked")
 
 	end
 
 	def apk_sign
 		return if not validOptions
 
-		cmd = eval("`tools/dex2jar/d2j-apk-sign.sh -f #{@projects+@project}/cracked.apk -o #{@projects+@project}/signed.apk`")
+		cmd = eval("`tools/dex2jar/d2j-apk-sign.sh -f #{@projects+@project}/apk/cracked.apk -o #{@projects+@project}/apk/signed.apk`")
 
 	end
 end
