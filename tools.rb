@@ -58,7 +58,7 @@ class Tools
 
 		version = "cracked"
 		version = "original" if original
-		cmd = eval("`dex2jar/d2j-dex2jar.sh -ts #{@projects+@project}/unzip/#{version}/classes.dex -o #{@projects+@project}/jar/#{version}.jar`")
+		cmd = eval("`tools/dex2jar/d2j-dex2jar.sh -ts #{@projects+@project}/unzip/#{version}/classes.dex -o #{@projects+@project}/jar/#{version}.jar`")
 
 	end
 
@@ -68,19 +68,19 @@ class Tools
 		version = "cracked"
 		version = "original" if original
 
-		cmd = eval("`java -jar jd-core-java.jar #{@projects+@project}/jar/#{version}.jar #{@projects+@project}/java/#{version}`")
+		cmd = eval("`java -jar tools/jd-core-java.jar #{@projects+@project}/jar/#{version}.jar #{@projects+@project}/java/#{version}`")
 
 	end
 
 	def apktool_build(original)
 
-		cmd = eval("`java -jar apktool.jar b -f #{@projects+@project}/reversed/cracked/ -o #{@projects+@project}/apk/cracked.apk`")
+		cmd = eval("`java -jar tools/apktool.jar b -f #{@projects+@project}/reversed/cracked/ -o #{@projects+@project}/apk/cracked.apk`")
 
 	end
 
 	def apktool_decompile(original)
 
-		cmd = eval("`java -jar apktool.jar d -f #{@projects+@project}/apk/original.apk -o #{@projects+@project}/reversed/original`")
+		cmd = eval("`java -jar tools/apktool.jar d -f #{@projects+@project}/apk/original.apk -o #{@projects+@project}/reversed/original`")
 		FileUtils::cp_r("#{@projects+@project}/reversed/original", "#{@projects+@project}/reversed/cracked")
 
 	end
@@ -88,7 +88,7 @@ class Tools
 	def apk-sign
 		return if not validOptions
 
-		cmd = eval("`dex2jar/d2j-apk-sign.sh -f #{@projects+@project}/cracked.apk -o #{@projects+@project}/signed.apk`")
+		cmd = eval("`tools/dex2jar/d2j-apk-sign.sh -f #{@projects+@project}/cracked.apk -o #{@projects+@project}/signed.apk`")
 
 	end
 end
