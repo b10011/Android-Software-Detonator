@@ -24,6 +24,17 @@ class Tools
 		@project = name
 	end
 
+	def getProjectNames
+		projectlist = Dir.entries(@projects).select do |entry|
+			File.directory? File.join(@projects,entry)
+		end
+		
+		projectlist.delete(".")
+		projectlist.delete("..")
+
+		return projectlist
+	end
+
 	def getPath
 		return nil if not validOptions
 

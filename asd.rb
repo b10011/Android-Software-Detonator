@@ -56,6 +56,17 @@ class ASD
 							@tools.cloneApk(@apk_path)
 						end,
 
+						[4, false, "Open old project"] => Proc.new do
+							@tools.getProjectNames.each do |name|
+								puts "\t#{name}"
+							end
+
+							puts
+
+							print "Give project name\n> "
+							@tools.setProjectName(gets.chomp)
+						end,
+
 						[0, false, "Menu"] => Proc.new do
 							@menu_path = []
 						end
