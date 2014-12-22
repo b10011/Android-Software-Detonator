@@ -63,8 +63,12 @@ class Tools
 	end
 
 	def jd-core-java(original)
+		return if not validOptions
 
+		version = "cracked"
+		version = "original" if original
 
+		cmd = eval("`java -jar jd-core-java.jar #{@projects+@project}/jar/#{version}.jar #{@projects+@project}/java/#{version}`")
 
 	end
 
