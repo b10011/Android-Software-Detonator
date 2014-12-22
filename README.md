@@ -3,7 +3,7 @@ Android Software Detonator
 
 Legal stuff
 -----------
-This software is redistributed as is without any warranty. It shall not be used for reverse-engineering any application the user do not have permission to reverse-engineer. I take no responsibility of what will you use this software for. By using code of this project you you agree these Terms of Service.
+This software is distributed as is without any warranty. It shall not be used for reverse-engineering any application the user do not have permission to reverse-engineer. I take no responsibility of what will you use this software for. By using code of this project you you agree these Terms of Service.
 
 
 Technical stuff
