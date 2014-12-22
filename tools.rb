@@ -72,7 +72,7 @@ class Tools
 
 	end
 
-	def apktool_build(original)
+	def apktool_build
 
 		cmd = eval("`java -jar tools/apktool.jar b -f #{@projects+@project}/reversed/cracked/ -o #{@projects+@project}/apk/cracked.apk`")
 
