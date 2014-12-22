@@ -1,3 +1,5 @@
+require './adb'
+
 class ASD
 	@menu_tree
 	@menu_path

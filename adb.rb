@@ -12,15 +12,22 @@ class ADB
   end
 
   def getDevices
-    cmd = eval("`adb devices | sed '/List.*/d' | grep -Po "^[a-zA-Z0-9]+"`")
+    cmd = eval("`adb devices | sed '/List.*/d' | grep -Po \"^[a-zA-Z0-9]+\"`")
 
     cmd.split(/\n/).each do |line|
       @devices.push(line)
     end
+
+    return @devices.join("\n")
   end
 
   def setDevice(devicename)
     @device = devicename
+  end
+
+  def getDevice
+    return @devices[0] if @devices.length == 1
+    return @device
   end
 
   def listPackages
