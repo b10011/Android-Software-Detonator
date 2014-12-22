@@ -24,6 +24,12 @@ class Tools
 		@project = name
 	end
 
+	def getPath
+		return nil if not validOptions
+
+		return "#{@projects+@project}"
+	end
+
 	def createFolders
 		return if not validOptions
 		[
@@ -43,13 +49,17 @@ class Tools
 		end
 	end
 
+	def cloneApk(path)
+		FileUtils::cp(path,@projects+@project+"/apk/original.apk")
+	end
+
 	def unzip(original)
 		return if not validOptions
 
 		version = "cracked"
 		version = "original" if original
 
-		cmd = eval("`unzip #{@projects+@project}/apk/#{version}.apk"} -d #{@projects+@project}/unzip/#{version}"}`")
+		cmd = eval("`unzip -o #{@projects+@project}/apk/#{version}.apk"} -d #{@projects+@project}/unzip/#{version}"}`")
 
 	end
 
@@ -62,7 +72,7 @@ class Tools
 
 	end
 
-	def jd-core-java(original)
+	def jd_core_java(original)
 		return if not validOptions
 
 		version = "cracked"
@@ -85,7 +95,7 @@ class Tools
 
 	end
 
-	def apk-sign
+	def apk_sign
 		return if not validOptions
 
 		cmd = eval("`tools/dex2jar/d2j-apk-sign.sh -f #{@projects+@project}/cracked.apk -o #{@projects+@project}/signed.apk`")

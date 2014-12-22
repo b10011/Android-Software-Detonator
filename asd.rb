@@ -1,4 +1,5 @@
 require './adb'
+require './tools'
 
 class ASD
 	@menu_tree
@@ -6,9 +7,17 @@ class ASD
 
 	@apk_path
 
+	@tools
+	@adb
+
 	def initialize
 		# if you have chosen 1. option, then 3. option and then 4. option, path would be: [1,3,4]
 		@menu_path = []
+
+
+		@tools = Tools.new
+		@adb = ADB.new
+
 
 		#	Menu format:
 		#	[
@@ -29,25 +38,66 @@ class ASD
 				[1, true, "Setting up"] => [
 					["Set up apk location and folder structure to make things cleaner",""],
 					{
-						[1, false, "Path to apk"] => Proc.new
+						[1, false, "Path to apk"] => Proc.new do
 							print "Give .apk path\n> "
 							@apk_path = gets.chomp
 							if not File.exist?(@apk_path)
 								puts "No .apk at such location. Try again!"
 							end
 						end,
-						[]
+
+						[2, false, "Project name"] => Proc.new do
+							print "Give project name\n> "
+							@tools.setProjectName(gets.chomp)
+						end,
+
+						[3, false, "Create folder tree"] => Proc.new do
+							@tools.createFolders
+							@tools.cloneApk(@apk_path)
+						end,
+
+						[0, false, "Menu"] => Proc.new do
+							@menu_path = []
+						end
 					}
 				],
 				[2, true, "Reverse-engineer"] => [
 					["Here you can do tricks with the apk", ""],
 					{
 						[1, false, "Detonate"] => Proc.new do
-							puts "Detonating..."
+							print "Apktool decompiling... "
+							@tools.apktool_decompile(true)
+							puts "Done!"
+							print "Unzipping... "
+							@tools.unzip(true)
+							puts "Done!"
+							print ".dex to .jar... "
+							@tools.dex2jar(true)
+							puts "Done!"
+							print ".dex to java sources... "
+							@tools.jd_core_java(true)
+							puts "Done!"
 						end,
 
-						[2, false, "Build"] => Proc.new do
-							puts "Building and signing..."
+						[2, false, "Build cracked"] => Proc.new do
+							print "Unzipping... "
+							@tools.unzip(false)
+							puts "Done!"
+							print ".dex to .jar... "
+							@tools.dex2jar(false)
+							puts "Done!"
+							print ".dex to java sources... "
+							@tools.jd_core_java(false)
+							puts "Done!"
+						end,
+
+						[3, false, "Build and sign"] => Proc.new do
+							print "Building apk... "
+							@tools.apktool_build
+							puts "Done!"
+							print "Signing... "
+							@tools.apk_sign
+							puts "Done!"
 						end,
 
 						[0, false, "Menu"] => Proc.new do
@@ -58,16 +108,21 @@ class ASD
 				[3, true, "ADB Tool"] => [
 					["Here you can download, upload or install APK from your Android device", "Example: com.example.game-1.apk[Enter]"],
 					{
-						[1, false, "Pull APK"] => Proc.new do
-							puts "Pulling APK"
+						[1, false, "List APKs"] => Proc.new do
+							print "Asking for installed apps... "
+							puts "Done!"
+							puts @adb.listPackages
 						end,
 
-						[2, false, "Push APK"] => Proc.new do
-							puts "Pushing APK"
+						[2, false, "Pull APK"] => Proc.new do
+							print "Give APK path\n> "
+							@adb.pull(gets.chomp)
+							print "Pulling APK..."
+							puts "Done!"
 						end,
 
 						[3, false, "Install APK"] => Proc.new do
-							puts "Installing APK"
+							@adb.install(@tools.getPath+"/apk/signed.apk")
 						end,
 
 						[0, false, "Menu"] => Proc.new do
