@@ -1,8 +1,15 @@
 Android Software Detonator
 ==========================
 
-NOTICE! There is not and will not be official Windows port although we try to place all methods using third party API or system calls to tools.rb and adb.rb so porting this won't be as painful.
+Legal stuff
+-----------
+This software is redistributed as is without any warranty. It shall not be used for reverse-engineering any application the user do not have permission to reverse-engineer. I take no responsibility of what will you use this software for. By using code of this project you you agree these Terms of Service.
 
+
+Technical stuff
+---------------
+
+NOTICE! There is not official Windows port although we try to place all methods using third party API or system calls to tools.rb and adb.rb so porting this won't be as painful. There might be official Windows version in near future after others or I dare to stop using Linux ;)
 
 Program made in Ruby which is helpful at maintaining clear folder structure and speeds up reverse-engineering itself.
 
@@ -19,7 +26,7 @@ What ASD provides to you?
 
 Folder structure ASD uses
 
-- asd
+- Android-Software-Detonator
 	- [Ruby executables by b10011]
 	- tools
 		- [apktool.jar (https://code.google.com/p/android-apktool/)]
@@ -47,4 +54,21 @@ Folder structure ASD uses
 
 Installation
 ------------
-To be wrote.
+
+1. Clone this repository
+2. Create folder tools/ in root folder
+3. Copy newest version of apktool to tools/ -folder WITH NAME "apktool.jar"
+4. Copy newest version of dex2jar to tools/ -folder WITH NAME "dex2jar/"
+5. Copy newest version of jd-core-java to tools/ -folder WITH NAME "jd-core-java.jar"
+6. Install Android Debugging Bridge and make sure you have drivers needed for your phone (so command "adb devices" return something more than just empty list)
+7. Use the software
+8. Contribute to the project by adding new features and reporting bugs
+
+Not working?
+------------
+
+Q: I did every single step correctly as listed above and yet still it is not working. What to do?  
+A: Submit a bug report  
+
+Q: I thought that this would make reverse-engineering child's play. I got sources what to do now?  
+A: No, this project is not about making reverse-engineering easy. This is about automating all the crap that you would need to do manually. You still need to be able to use terminal and you need to be able to read Java and Smali.  
