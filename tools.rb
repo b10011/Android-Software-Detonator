@@ -54,7 +54,8 @@ class Tools
 			"/reversed/original",
 			"/reversed/cracked",
 			"/unzip/original",
-			"/unzip/cracked"
+			"/unzip/cracked",
+			"/tmp"
 		].each do |subfolder|
 			FileUtils::mkdir_p(@projects+@project+subfolder)
 		end
@@ -102,8 +103,9 @@ class Tools
 	def apktool_decompile(original)
 
 		cmd = eval("`java -jar tools/apktool.jar d -f \"#{@projects+@project}/apk/original.apk\" -o \"#{@projects+@project}/reversed/original\"`")
-		FileUtils::cp_r("#{@projects+@project}/reversed/original/*", "#{@projects+@project}/reversed/cracked")
-
+		FileUtils::cp_r("#{@projects+@project}/reversed/original", "#{@projects+@project}/tmp")
+		FileUtils::mv("#{@projects+@project}/tmp/original", "#{@projects+@project}/tmp/cracked", :force => true)
+		FileUtils::mv("#{@projects+@project}/tmp/cracked", "#{@projects+@project}/reversed/cracked", :force => true)
 	end
 
 	def apk_sign
